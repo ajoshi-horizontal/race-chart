@@ -1,16 +1,36 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { PopulationYearEntry } from "@/types/population";
 import CountryList from "./CountryList";
 
 type PopulationViewerProps = {
-    data: PopulationYearEntry[];
-}
+  data: PopulationYearEntry[];
+};
 
-export default function PopulationViewer({data}: PopulationViewerProps) {
-    const [yearIndex, setYearIndex] = useState(0);
+export default function PopulationViewer({ data }: PopulationViewerProps) {
+  const [yearIndex, setYearIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  console.log(yearIndex);
   const currentYearData = data[yearIndex];
+
+  useEffect(()=>{
+    if(!isPlaying) return;
+
+    const timerId = setInterval(()=>{
+        setYearIndex((prevIndex)=>{
+            if(prevIndex >= data.length -1){
+                setIsPlaying(false);
+                return prevIndex;
+            }
+            return prevIndex + 1;
+        })
+    },1200)
+
+    return ()=> clearInterval(timerId);
+
+  },[isPlaying, data.length])
+
   const goToPreviousYear = () => {
     if (yearIndex > 0) {
       setYearIndex(yearIndex - 1);
@@ -22,8 +42,12 @@ export default function PopulationViewer({data}: PopulationViewerProps) {
     }
   };
 
-    return (
-        <section>
+  const togglePlayPause = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
+  return (
+    <section>
       <p className="mt-2 mb-4 text-gray-600">Year: {currentYearData.Year}</p>
       <div className="mb-4 flex gap-2">
         <button
@@ -40,6 +64,12 @@ export default function PopulationViewer({data}: PopulationViewerProps) {
         >
           Next
         </button>
+        <button
+          className="rounded border border-gray-300 bg-white px-3 py-2"
+          onClick={togglePlayPause}
+        >
+          {isPlaying ? "Pause" : "Play"}
+        </button>
       </div>
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -49,5 +79,5 @@ export default function PopulationViewer({data}: PopulationViewerProps) {
         <CountryList countries={currentYearData.Countries} />
       </motion.div>
     </section>
-    );
+  );
 }
