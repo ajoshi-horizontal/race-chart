@@ -43,7 +43,16 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
   };
 
   const togglePlayPause = () => {
-    setIsPlaying((prev) => !prev);
+    
+    if (isPlaying) {
+        setIsPlaying(false);
+        return;
+      }
+      const isAtLastYear = yearIndex === data.length - 1;
+      if (isAtLastYear) {
+        setYearIndex(0);
+      }
+      setIsPlaying(true);
   };
 
   return (
