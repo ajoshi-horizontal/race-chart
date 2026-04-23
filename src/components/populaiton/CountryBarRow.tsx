@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { tv } from "tailwind-variants";
 import type { Country } from "@/types/population";
 
 type CountryBarRowProps = {
@@ -27,6 +28,7 @@ export default function CountryBarRow({
   widthPercent,
   rank,
 }: CountryBarRowProps) {
+  const { row, countryText, rankText, barTrack, barFill, populationText } = COUNTRY_BAR_ROW_VARIANTS();
 
   // Get the color for the country
   const barColor = COUNTRY_COLORS[country.Country] ?? "#3b82f6";
@@ -42,26 +44,42 @@ export default function CountryBarRow({
         },
       }}
       key={country.Country}
-      className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-3"
+      className={row()}
     >
-      <span className=" shrink-0 truncate font-medium text-neutral-900">
-        <span className="mr-2 inline-block w-5 text-right text-sm text-neutral-400">
+      <span className={countryText()}>
+        <span className={rankText()}>
           {rank}.
         </span>
         {country.Country}
       </span>
-      <div className="h-6 flex-1 overflow-hidden rounded bg-gray-100">
+      <div className={barTrack()}>
         <motion.div
           style={{ backgroundColor: barColor }}
-          className="h-full rounded bg-blue-500"
+          className={barFill()}
           initial={{ width: 0 }}
           animate={{ width: `${widthPercent}%` }}
           transition={{ duration: 2, ease: "easeInOut" }}
         ></motion.div>
       </div>
-      <span className=" shrink-0 text-right text-sm text-gray-500">
+      <span className={populationText()}>
         {country.Population.toLocaleString()}
       </span>
     </motion.li>
   );
 }
+
+const COUNTRY_BAR_ROW_VARIANTS = tv({
+  slots: {
+    row: [
+      "grid",
+      "grid-cols-[minmax(0,1fr)_minmax(0,2fr)_auto]",
+      "items-center",
+      "gap-3",
+    ],
+    countryText: ["shrink-0", "truncate", "font-medium", "text-neutral-900"],
+    rankText: ["mr-2", "inline-block", "w-5", "text-right", "text-sm", "text-neutral-400"],
+    barTrack: ["h-6", "flex-1", "overflow-hidden", "rounded", "bg-gray-100"],
+    barFill: ["h-full", "rounded", "bg-blue-500"],
+    populationText: ["shrink-0", "text-right", "text-sm", "text-gray-500"],
+  },
+});

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { tv } from "tailwind-variants";
 import type { PopulationYearEntry } from "@/types/population";
 import CountryList from "./CountryList";
 
@@ -9,9 +10,24 @@ type PopulationViewerProps = {
 };
 
 export default function PopulationViewer({ data }: PopulationViewerProps) {
+  const {
+    section,
+    emptyState,
+    header,
+    title,
+    subtitle,
+    yearNav,
+    navButton,
+    yearText,
+    controlsRow,
+    controlsGroup,
+    playButton,
+    resetButton,
+    topCountButton,
+  } = POPULATION_VIEWER_VARIANTS();
 
+  // State for the top count
   const [topCount, setTopCount] = useState(10);
-
 
   // Constants for the initial year index and the autoplay interval
   const INITIAL_YEAR_INDEX = 0;
@@ -82,74 +98,60 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
   };
   if (data.length === 0) {
     return (
-      <section className="select-none">
-        <p className="text-sm text-gray-600">No population data available.</p>
+      <section className={section()}>
+        <p className={emptyState()}>No population data available.</p>
       </section>
     );
   }
   return (
-    <section>
-      <header className="flex gap-4 border-b border-neutral-100 justify-between mb-6 pb-4 flex-col sm:flex-row">
+    <section className={section()}>
+      <header className={header()}>
         <div>
-        <h1 className="sm:text-3xl text-2xl font-bold">Population by Country</h1>
-        <p className="text-sm text-gray-600 mt-1">Top countries by headcount for each year.</p>
+          <h1 className={title()}>Population by Country</h1>
+          <p className={subtitle()}>Top countries by headcount for each year.</p>
         </div>
-        <div className="flex items-center gap-2 sm:justify-end">
-        <button
-          className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm text-neutral-700 bg-neutral-50 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={goToPreviousYear}
-          disabled={yearIndex === INITIAL_YEAR_INDEX}
-        >
-          ←
-        </button>
-        <span className=" text-gray-600">{currentYearData.Year}</span>
-        <button
-          className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm text-neutral-700 bg-neutral-50 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={goToNextYear}
-          disabled={yearIndex === data.length - 1}
-        >
-          →
-        </button>
+        <div className={yearNav()}>
+          <button
+            className={navButton()}
+            onClick={goToPreviousYear}
+            disabled={yearIndex === INITIAL_YEAR_INDEX}
+          >
+            ←
+          </button>
+          <span className={yearText()}>{currentYearData.Year}</span>
+          <button
+            className={navButton()}
+            onClick={goToNextYear}
+            disabled={yearIndex === data.length - 1}
+          >
+            →
+          </button>
         </div>
       </header>
-      
-      <div className="mb-6 flex gap-2 justify-between">
-        <div className="flex items-center gap-2">
-        <button
-          className={`rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700 disabled:cursor-not-allowed disabled:opacity-50 ${
-            isPlaying ? "bg-neutral-900 text-white border-none" : "border-gray-300 bg-white hover:bg-neutral-50"
-          }`}
-          onClick={togglePlayPause}
-        >
-          {isPlaying ? "Pause" : "Autoplay"}
-        </button>
-        <button
-          className="rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
-          onClick={resetTimeline}
-          disabled={isAtInitialState}
-        >
-          Reset
-        </button>
+
+      <div className={controlsRow()}>
+        <div className={controlsGroup()}>
+          <button className={playButton({ active: isPlaying })} onClick={togglePlayPause}>
+            {isPlaying ? "Pause" : "Autoplay"}
+          </button>
+          <button className={resetButton()} onClick={resetTimeline} disabled={isAtInitialState}>
+            Reset
+          </button>
         </div>
-        <div className="flex items-center gap-2">
-        <button
-  className={`rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700  ${
-    topCount === 10 ? "bg-neutral-900 text-white border-none" : "border-gray-300 bg-white hover:bg-neutral-50"
-  }`}
-  onClick={() => setTopCount(10)}
->
-  Top 10
-        </button>
-        <button
-          className={`rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700  ${
-            topCount === 15 ? "bg-neutral-900 text-white border-none" : "border-gray-300 bg-white hover:bg-neutral-50"
-          }`}
-          onClick={() => setTopCount(15)}
-        >
-          Top 15
-        </button>
+        <div className={controlsGroup()}>
+          <button
+            className={topCountButton({ active: topCount === 10 })}
+            onClick={() => setTopCount(10)}
+          >
+            Top 10
+          </button>
+          <button
+            className={topCountButton({ active: topCount === 15 })}
+            onClick={() => setTopCount(15)}
+          >
+            Top 15
+          </button>
         </div>
-        
       </div>
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -161,3 +163,77 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
     </section>
   );
 }
+
+const POPULATION_VIEWER_VARIANTS = tv({
+  slots: {
+    section: ["select-none"],
+    emptyState: ["text-sm", "text-gray-600"],
+    header: [
+      "mb-6",
+      "flex",
+      "flex-col",
+      "justify-between",
+      "gap-4",
+      "border-b",
+      "border-neutral-100",
+      "pb-4",
+      "sm:flex-row",
+    ],
+    title: ["text-2xl", "font-bold", "sm:text-3xl"],
+    subtitle: ["mt-1", "text-sm", "text-gray-600"],
+    yearNav: ["flex", "items-center", "gap-2", "sm:justify-end"],
+    navButton: [
+      "rounded-md",
+      "border",
+      "border-neutral-200",
+      "bg-neutral-50",
+      "px-3",
+      "py-1.5",
+      "text-sm",
+      "text-neutral-700",
+      "hover:bg-neutral-100",
+      "disabled:cursor-not-allowed",
+      "disabled:opacity-50",
+    ],
+    yearText: ["text-gray-600"],
+    controlsRow: ["mb-6", "flex", "justify-between", "gap-2"],
+    controlsGroup: ["flex", "items-center", "gap-2"],
+    playButton: [
+      "rounded-md",
+      "border",
+      "px-2.5",
+      "py-1",
+      "text-sm",
+      "disabled:cursor-not-allowed",
+      "disabled:opacity-50",
+    ],
+    resetButton: [
+      "rounded-md",
+      "border",
+      "border-neutral-200",
+      "px-2.5",
+      "py-1",
+      "text-sm",
+      "text-neutral-700",
+      "hover:bg-neutral-50",
+      "disabled:cursor-not-allowed",
+      "disabled:opacity-50",
+    ],
+    topCountButton: ["rounded-md", "border", "px-2.5", "py-1", "text-sm"],
+  },
+  variants: {
+    active: {
+      true: {
+        playButton: ["border-transparent", "bg-neutral-900", "text-white"],
+        topCountButton: ["border-transparent", "bg-neutral-900", "text-white"],
+      },
+      false: {
+        playButton: ["border-gray-300", "bg-white", "text-neutral-700", "hover:bg-neutral-50"],
+        topCountButton: ["border-gray-300", "bg-white", "text-neutral-700", "hover:bg-neutral-50"],
+      },
+    },
+  },
+  defaultVariants: {
+    active: false,
+  },
+});
