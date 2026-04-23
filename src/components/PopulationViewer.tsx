@@ -15,7 +15,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
 
   // Constants for the initial year index and the autoplay interval
   const INITIAL_YEAR_INDEX = 0;
-  const AUTOPLAY_INTERVAL_MS = 1200;
+  const AUTOPLAY_INTERVAL_MS = 2000;
   
   // State for the current year index and the play/pause state
   const [yearIndex, setYearIndex] = useState(INITIAL_YEAR_INDEX);

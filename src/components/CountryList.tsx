@@ -23,7 +23,18 @@ export default function CountryList({ countries, topCount }: CountryListProps) {
   }, [topCountries]);
 
   return (
-    <motion.div layout className="space-y-3">
+    <motion.div
+      layout="position"
+      transition={{
+        layout: {
+          type: "spring",
+          damping: 28,
+          stiffness: 125,
+          mass: 0.85,
+        },
+      }}
+      className="space-y-3"
+    >
       {topCountries.map((country, index) => {
         const widthPercent = (country.Population / maxPopulation) * 100;
         return (

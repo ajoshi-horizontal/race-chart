@@ -7,20 +7,20 @@ type CountryBarRowProps = {
   rank: number;
 };
 const COUNTRY_COLORS: Record<string, string> = {
-  China: "#2563eb",
-  India: "#16a34a",
-  "United States": "#dc2626",
-  Indonesia: "#f59e0b",
-  Pakistan: "#7c3aed",
-  Brazil: "#0891b2",
-  Nigeria: "#ea580c",
-  Bangladesh: "#65a30d",
-  Russia: "#9333ea",
-  Japan: "#0d9488",
-  Ethiopia: "#8b5cf6",
-  Philippines: "#f472b6",
-  Egypt: "#8b5cf6",
-  Vietnam: "#8b5cf6",
+  China: "#de2910",            
+  India: "#ff9933",            
+  "United States": "#3c3b6e",  
+  Indonesia:"#ef4444",        
+  Pakistan: "#01411c",        
+  Brazil: "#009c3b",          
+  Nigeria: "#008751",         
+  Bangladesh: "#006a4e",      
+  Russia: "#0039a6",          
+  Japan: "#bc002d",           
+  Ethiopia: "#078930",        
+  Philippines: "#0038a8",     
+  Egypt:   "#b91c1c",         
+  Vietnam: "#da251d", 
 };
 export default function CountryBarRow({
   country,
@@ -31,7 +31,19 @@ export default function CountryBarRow({
   // Get the color for the country
   const barColor = COUNTRY_COLORS[country.Country] ?? "#3b82f6";
   return (
-    <motion.div layout transition={{ duration: 2 }} key={country.Country} className="space-y-1">
+    <motion.div
+      layout="position"
+      transition={{
+        layout: {
+          type: "spring",
+          damping: 26,
+          stiffness: 130,
+          mass: 0.8,
+        },
+      }}
+      key={country.Country}
+      className="space-y-1"
+    >
       <div className="flex items-center justify-between text-sm">
         <span className="font-medium">{rank}. {country.Country}</span>
         <span className="text-gray-500">
