@@ -36,9 +36,9 @@ export default function CountryBarRow({
       transition={{
         layout: {
           type: "spring",
-          damping: 26,
-          stiffness: 130,
-          mass: 0.8,
+          damping: 34,
+          stiffness: 90,
+          mass: 1,
         },
       }}
       key={country.Country}
@@ -56,7 +56,7 @@ export default function CountryBarRow({
           className="h-full rounded bg-blue-500"
           initial={{ width: 0 }}
           animate={{ width: `${widthPercent}%` }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 2, ease: "easeInOut" }}
         ></motion.div>
       </div>
     </motion.div>

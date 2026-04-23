@@ -28,9 +28,9 @@ export default function CountryList({ countries, topCount }: CountryListProps) {
       transition={{
         layout: {
           type: "spring",
-          damping: 28,
-          stiffness: 125,
-          mass: 0.85,
+          damping: 36,
+          stiffness: 88,
+          mass: 1,
         },
       }}
       className="space-y-3"
