@@ -17,8 +17,9 @@ export default function CountryList({ countries }: CountryListProps) {
     return sortedCountries.slice(0, 10);
   }, [countries]);
 
-  // Get the max population of the top 10 countries
-  const maxPopulation = topCountries[0]?.Population ?? 1;
+  const maxPopulation = useMemo(() => {
+    return topCountries[0]?.Population ?? 1;
+  }, [topCountries]);
 
   return (
     <motion.div layout className="space-y-3">

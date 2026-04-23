@@ -77,7 +77,13 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
     setYearIndex(INITIAL_YEAR_INDEX);
     setIsPlaying(false);
   };
-
+  if (data.length === 0) {
+    return (
+      <section className="select-none">
+        <p className="text-sm text-gray-600">No population data available.</p>
+      </section>
+    );
+  }
   return (
     <section className="select-none">
       <p className="mt-2 mb-4 text-gray-600">Year: {currentYearData.Year}</p>
