@@ -10,7 +10,7 @@ export default function CountryBarRow({
   widthPercent,
 }: CountryBarRowProps) {
   return (
-    <motion.div layout key={country.Country} className="space-y-1">
+    <motion.div layout transition={{ duration: 1 }} key={country.Country} className="space-y-1">
       <div className="flex items-center justify-between text-sm">
         <span className="font-medium">{country.Country}</span>
         <span className="text-gray-500">
