@@ -10,11 +10,16 @@ export default function CountryList({ countries }: CountryListProps) {
   const sortedCountries = [...countries].sort(
     (a, b) => b.Population - a.Population,
   );
-  const maxPopulation = sortedCountries[0]?.Population ?? 1;
+
+  // Get the top 10 countries by population
+  const topCountries = sortedCountries.slice(0, 10);
+
+  // Get the max population of the top 10 countries
+  const maxPopulation = topCountries[0]?.Population ?? 1;
 
   return (
     <motion.div layout className="space-y-3">
-      {sortedCountries.map((country) => {
+      {topCountries.map((country) => {
         const widthPercent = (country.Population / maxPopulation) * 100;
         return (
           <CountryBarRow

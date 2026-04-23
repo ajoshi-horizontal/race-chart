@@ -5,7 +5,7 @@ import { PopulationYearEntry } from "@/types/population";
 import PopulationViewer from "@/components/PopulationViewer";
 
 export default function Home() {
-
+  // Convert the population data to the PopulationYearEntry type
   const populationData = populationByYear as PopulationYearEntry[];
 
   return (
@@ -16,7 +16,6 @@ export default function Home() {
       <PopulationViewer data={populationData} />
     </div>
     </main>
-    
     </>
   );
 }

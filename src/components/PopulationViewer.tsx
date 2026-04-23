@@ -9,14 +9,17 @@ type PopulationViewerProps = {
 };
 
 export default function PopulationViewer({ data }: PopulationViewerProps) {
+  
+  // State for the current year index and the play/pause state
   const [yearIndex, setYearIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  // Get the current year data
   const currentYearData = data[yearIndex];
 
   useEffect(()=>{
     if(!isPlaying) return;
-
+    // Set up a timer to increment the year index every 1200ms
     const timerId = setInterval(()=>{
         setYearIndex((prevIndex)=>{
             if(prevIndex >= data.length -1){
@@ -26,28 +29,31 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
             return prevIndex + 1;
         })
     },1200)
-
+    // Clean up the timer when the component unmounts or the isPlaying state changes
     return ()=> clearInterval(timerId);
 
   },[isPlaying, data.length])
 
+  // Go to the previous year
   const goToPreviousYear = () => {
     if (yearIndex > 0) {
       setYearIndex(yearIndex - 1);
     }
   };
+  // Go to the next year
   const goToNextYear = () => {
     if (yearIndex < data.length - 1) {
       setYearIndex(yearIndex + 1);
     }
   };
 
+  // Toggle the play/pause state
   const togglePlayPause = () => {
-    
     if (isPlaying) {
         setIsPlaying(false);
         return;
       }
+      // If the current year is the last year, go to the first year
       const isAtLastYear = yearIndex === data.length - 1;
       if (isAtLastYear) {
         setYearIndex(0);
