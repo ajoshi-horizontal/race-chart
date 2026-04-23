@@ -31,7 +31,7 @@ export default function CountryBarRow({
   // Get the color for the country
   const barColor = COUNTRY_COLORS[country.Country] ?? "#3b82f6";
   return (
-    <motion.div layout transition={{ duration: 1 }} key={country.Country} className="space-y-1">
+    <motion.div layout transition={{ duration: 2 }} key={country.Country} className="space-y-1">
       <div className="flex items-center justify-between text-sm">
         <span className="font-medium">{rank}. {country.Country}</span>
         <span className="text-gray-500">

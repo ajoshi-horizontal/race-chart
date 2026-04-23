@@ -5,17 +5,18 @@ import { useMemo } from "react";
 
 type CountryListProps = {
   countries: Country[];
+  topCount: number;
 };
 
-export default function CountryList({ countries }: CountryListProps) {
+export default function CountryList({ countries, topCount }: CountryListProps) {
 
   // Memoize the top 10 countries by population
   const topCountries = useMemo(() => {
     const sortedCountries = [...countries].sort(
       (a, b) => b.Population - a.Population
     );
-    return sortedCountries.slice(0, 10);
-  }, [countries]);
+    return sortedCountries.slice(0, topCount);
+  }, [countries, topCount]);
 
   const maxPopulation = useMemo(() => {
     return topCountries[0]?.Population ?? 1;

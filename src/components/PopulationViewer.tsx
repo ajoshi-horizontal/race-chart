@@ -10,6 +10,9 @@ type PopulationViewerProps = {
 
 export default function PopulationViewer({ data }: PopulationViewerProps) {
 
+  const [topCount, setTopCount] = useState(10);
+
+
   // Constants for the initial year index and the autoplay interval
   const INITIAL_YEAR_INDEX = 0;
   const AUTOPLAY_INTERVAL_MS = 1200;
@@ -115,13 +118,29 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
         >
           Reset
         </button>
+        <button
+  className={`min-w-[90px] rounded border px-3 py-2 ${
+    topCount === 10 ? "border-blue-600 bg-blue-50" : "border-gray-300 bg-white"
+  }`}
+  onClick={() => setTopCount(10)}
+>
+  Top 10
+</button>
+<button
+  className={`min-w-[90px] rounded border px-3 py-2 ${
+    topCount === 15 ? "border-blue-600 bg-blue-50" : "border-gray-300 bg-white"
+  }`}
+  onClick={() => setTopCount(15)}
+>
+  Top 15
+</button>
       </div>
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <CountryList countries={currentYearData.Countries} />
+        <CountryList countries={currentYearData.Countries} topCount={topCount} />
       </motion.div>
     </section>
   );
