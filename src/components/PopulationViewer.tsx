@@ -91,10 +91,10 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
   return (
     <section className="select-none">
       {/* <PageHeader title="Population by Country" /> */}
-      <header className="flex items-center border-b border-neutral-100 justify-between mb-6 pb-4">
+      <header className="flex gap-4 border-b border-neutral-100 justify-between mb-6 pb-4 flex-col sm:flex-row">
         <div>
-        <h1 className="text-3xl font-bold">Population by Country</h1>
-        <p className="text-sm text-gray-600">Top countries by headcount for each year.</p>
+        <h1 className="sm:text-3xl text-2xl font-bold">Population by Country</h1>
+        <p className="text-sm text-gray-600 mt-1">Top countries by headcount for each year.</p>
         </div>
         <div className="flex items-center gap-2 sm:justify-end">
         <button
