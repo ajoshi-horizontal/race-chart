@@ -19,13 +19,14 @@ export default function CountryList({ countries }: CountryListProps) {
 
   return (
     <motion.div layout className="space-y-3">
-      {topCountries.map((country) => {
+      {topCountries.map((country, index) => {
         const widthPercent = (country.Population / maxPopulation) * 100;
         return (
           <CountryBarRow
             key={country.Country}
             country={country}
             widthPercent={widthPercent}
+            rank={index + 1}
           />
         );
       })}
