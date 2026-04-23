@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import type { PopulationYearEntry } from "@/types/population";
-import CountryList from "./CountryList";
+import CountryList from "../lib/helper/CountryList";
+import PageHeader from "./PageHeader";
 
 type PopulationViewerProps = {
   data: PopulationYearEntry[];
@@ -89,6 +90,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
   }
   return (
     <section className="select-none">
+      <PageHeader title="Population by Country" />
       <p className="mt-2 mb-4 text-gray-600">Year: {currentYearData.Year}</p>
       <div className="mb-4 flex gap-2">
         <button

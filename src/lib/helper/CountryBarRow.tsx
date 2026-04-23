@@ -31,7 +31,7 @@ export default function CountryBarRow({
   // Get the color for the country
   const barColor = COUNTRY_COLORS[country.Country] ?? "#3b82f6";
   return (
-    <motion.div
+    <motion.li
       layout="position"
       transition={{
         layout: {
@@ -42,15 +42,15 @@ export default function CountryBarRow({
         },
       }}
       key={country.Country}
-      className="space-y-1"
+      className="flex items-center gap-3"
     >
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-medium">{rank}. {country.Country}</span>
-        <span className="text-gray-500">
-          {country.Population.toLocaleString()}
+      <span className="w-[180px] shrink-0 truncate font-medium text-neutral-900">
+        <span className="mr-2 inline-block w-5 text-right text-sm text-neutral-400">
+          {rank}.
         </span>
-      </div>
-      <div className="h-6 w-full rounded bg-gray-100">
+        {country.Country}
+      </span>
+      <div className="h-6 flex-1 overflow-hidden rounded bg-gray-100">
         <motion.div
           style={{ backgroundColor: barColor }}
           className="h-full rounded bg-blue-500"
@@ -59,6 +59,9 @@ export default function CountryBarRow({
           transition={{ duration: 2, ease: "easeInOut" }}
         ></motion.div>
       </div>
-    </motion.div>
+      <span className="w-[90px] shrink-0 text-right text-sm text-gray-500">
+        {country.Population.toLocaleString()}
+      </span>
+    </motion.li>
   );
 }

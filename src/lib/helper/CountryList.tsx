@@ -23,7 +23,7 @@ export default function CountryList({ countries, topCount }: CountryListProps) {
   }, [topCountries]);
 
   return (
-    <motion.div
+    <motion.ul
       layout="position"
       transition={{
         layout: {
@@ -46,6 +46,6 @@ export default function CountryList({ countries, topCount }: CountryListProps) {
           />
         );
       })}
-    </motion.div>
+    </motion.ul>
   );
 }
