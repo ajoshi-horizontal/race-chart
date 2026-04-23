@@ -22,7 +22,7 @@ export default function CountryBarRow({
           className="h-full rounded bg-blue-500"
           initial={{ width: 0 }}
           animate={{ width: `${widthPercent}%` }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
+          transition={{ duration: 1, ease: "easeInOut" }}
         ></motion.div>
       </div>
     </motion.div>

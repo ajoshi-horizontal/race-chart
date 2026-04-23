@@ -11,7 +11,7 @@ type PopulationViewerProps = {
 export default function PopulationViewer({ data }: PopulationViewerProps) {
   const [yearIndex, setYearIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log(yearIndex);
+
   const currentYearData = data[yearIndex];
 
   useEffect(()=>{
