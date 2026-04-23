@@ -166,7 +166,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
 
 const POPULATION_VIEWER_VARIANTS = tv({
   slots: {
-    section: ["select-none"],
+    section: [""],
     emptyState: ["text-sm", "text-gray-600"],
     header: [
       "mb-6",
@@ -179,7 +179,7 @@ const POPULATION_VIEWER_VARIANTS = tv({
       "pb-4",
       "sm:flex-row",
     ],
-    title: ["text-2xl", "font-bold", "sm:text-3xl"],
+    title: ["text-2xl", "font-bold", "sm:text-3xl", "text-black"],
     subtitle: ["mt-1", "text-sm", "text-gray-600"],
     yearNav: ["flex", "items-center", "gap-2", "sm:justify-end"],
     navButton: [
