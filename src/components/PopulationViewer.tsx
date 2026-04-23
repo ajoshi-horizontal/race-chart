@@ -9,15 +9,22 @@ type PopulationViewerProps = {
 };
 
 export default function PopulationViewer({ data }: PopulationViewerProps) {
+
+  // Constants for the initial year index and the autoplay interval
+  const INITIAL_YEAR_INDEX = 0;
+  const AUTOPLAY_INTERVAL_MS = 1200;
   
   // State for the current year index and the play/pause state
-  const [yearIndex, setYearIndex] = useState(0);
+  const [yearIndex, setYearIndex] = useState(INITIAL_YEAR_INDEX);
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Get the current year data
   const currentYearData = data[yearIndex];
 
-  const isAtInitialState = yearIndex === 0;
+  // Check if the year index is at the initial state
+  const isAtInitialState = yearIndex === INITIAL_YEAR_INDEX;
+
+  
 
   useEffect(()=>{
     if(!isPlaying) return;
@@ -30,7 +37,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
             }
             return prevIndex + 1;
         })
-    },1200)
+    },AUTOPLAY_INTERVAL_MS)
     // Clean up the timer when the component unmounts or the isPlaying state changes
     return ()=> clearInterval(timerId);
 
@@ -38,12 +45,14 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
 
   // Go to the previous year
   const goToPreviousYear = () => {
+    setIsPlaying(false);
     if (yearIndex > 0) {
       setYearIndex(yearIndex - 1);
     }
   };
   // Go to the next year
   const goToNextYear = () => {
+    setIsPlaying(false);
     if (yearIndex < data.length - 1) {
       setYearIndex(yearIndex + 1);
     }
@@ -58,43 +67,43 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
       // If the current year is the last year, go to the first year
       const isAtLastYear = yearIndex === data.length - 1;
       if (isAtLastYear) {
-        setYearIndex(0);
+        setYearIndex(INITIAL_YEAR_INDEX);
       }
       setIsPlaying(true);
   };
 
   // Reset the year index to the first year
   const resetTimeline = () => {
-    setYearIndex(0);
+    setYearIndex(INITIAL_YEAR_INDEX);
     setIsPlaying(false);
   };
 
   return (
-    <section>
+    <section className="select-none">
       <p className="mt-2 mb-4 text-gray-600">Year: {currentYearData.Year}</p>
       <div className="mb-4 flex gap-2">
         <button
-          className="rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={goToPreviousYear}
-          disabled={yearIndex === 0}
+          disabled={yearIndex === INITIAL_YEAR_INDEX}
         >
           Previous
         </button>
         <button
-          className="rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={goToNextYear}
           disabled={yearIndex === data.length - 1}
         >
           Next
         </button>
         <button
-          className="rounded border border-gray-300 bg-white px-3 py-2"
+          className="rmin-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={togglePlayPause}
         >
           {isPlaying ? "Pause" : "Play"}
         </button>
         <button
-          className="rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={resetTimeline}
           disabled={isAtInitialState}
         >

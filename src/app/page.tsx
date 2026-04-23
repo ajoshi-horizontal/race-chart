@@ -1,4 +1,3 @@
-"use client";
 import PageHeader from "@/components/PageHeader";
 import populationByYear from "@/data/population-by-year.json";
 import { PopulationYearEntry } from "@/types/population";
