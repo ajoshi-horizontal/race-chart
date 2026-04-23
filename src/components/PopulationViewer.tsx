@@ -90,52 +90,68 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
   }
   return (
     <section className="select-none">
-      <PageHeader title="Population by Country" />
-      <p className="mt-2 mb-4 text-gray-600">Year: {currentYearData.Year}</p>
-      <div className="mb-4 flex gap-2">
+      {/* <PageHeader title="Population by Country" /> */}
+      <header className="flex items-center border-b border-neutral-100 justify-between mb-6 pb-4">
+        <div>
+        <h1 className="text-3xl font-bold">Population by Country</h1>
+        <p className="text-sm text-gray-600">Top countries by headcount for each year.</p>
+        </div>
+        <div className="flex items-center gap-2 sm:justify-end">
         <button
-          className="min-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm text-neutral-700 bg-neutral-50 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={goToPreviousYear}
           disabled={yearIndex === INITIAL_YEAR_INDEX}
         >
-          Previous
+          ←
         </button>
+        <span className=" text-gray-600">Year: {currentYearData.Year}</span>
         <button
-          className="min-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm text-neutral-700 bg-neutral-50 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={goToNextYear}
           disabled={yearIndex === data.length - 1}
         >
-          Next
+          →
         </button>
+        </div>
+      </header>
+      
+      <div className="mb-6 flex gap-2 justify-between">
+        <div className="flex items-center gap-2">
         <button
-          className="rmin-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className={`rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700 disabled:cursor-not-allowed disabled:opacity-50 ${
+            isPlaying ? "bg-neutral-900 text-white border-none" : "border-gray-300 bg-white hover:bg-neutral-50"
+          }`}
           onClick={togglePlayPause}
         >
           {isPlaying ? "Pause" : "Play"}
         </button>
         <button
-          className="min-w-[90px] rounded border border-gray-300 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={resetTimeline}
           disabled={isAtInitialState}
         >
           Reset
         </button>
+        </div>
+        <div className="flex items-center gap-2">
         <button
-  className={`min-w-[90px] rounded border px-3 py-2 ${
-    topCount === 10 ? "border-blue-600 bg-blue-50" : "border-gray-300 bg-white"
+  className={`rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700  ${
+    topCount === 10 ? "bg-neutral-900 text-white border-none" : "border-gray-300 bg-white hover:bg-neutral-50"
   }`}
   onClick={() => setTopCount(10)}
 >
   Top 10
-</button>
-<button
-  className={`min-w-[90px] rounded border px-3 py-2 ${
-    topCount === 15 ? "border-blue-600 bg-blue-50" : "border-gray-300 bg-white"
-  }`}
-  onClick={() => setTopCount(15)}
->
-  Top 15
-</button>
+        </button>
+        <button
+          className={`rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700  ${
+            topCount === 15 ? "bg-neutral-900 text-white border-none" : "border-gray-300 bg-white hover:bg-neutral-50"
+          }`}
+          onClick={() => setTopCount(15)}
+        >
+          Top 15
+        </button>
+        </div>
+        
       </div>
       <motion.div
         initial={{ opacity: 0, y: 12 }}

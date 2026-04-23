@@ -1,4 +1,3 @@
-import PageHeader from "@/components/PageHeader";
 import populationByYear from "@/lib/data/population-by-year.json";
 import { PopulationYearEntry } from "@/types/population";
 import PopulationViewer from "@/components/PopulationViewer";
