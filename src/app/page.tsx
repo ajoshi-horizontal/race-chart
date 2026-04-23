@@ -1,6 +1,6 @@
 import populationByYear from "@/lib/data/population-by-year.json";
 import { PopulationYearEntry } from "@/types/population";
-import PopulationViewer from "@/components/PopulationViewer";
+import PopulationViewer from "@/components/populaiton/PopulationViewer";
 
 export default function Home() {
   // Convert the population data to the PopulationYearEntry type

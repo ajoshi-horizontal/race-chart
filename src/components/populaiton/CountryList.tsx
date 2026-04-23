@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Country } from "@/types/population";
-import CountryBarRow from "./CountryBarRow";
+import CountryBarRow from "@/components/populaiton/CountryBarRow";
 import { useMemo } from "react";
 
 type CountryListProps = {

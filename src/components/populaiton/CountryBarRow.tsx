@@ -42,9 +42,9 @@ export default function CountryBarRow({
         },
       }}
       key={country.Country}
-      className="flex items-center gap-3"
+      className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_auto] items-center gap-3"
     >
-      <span className="w-[180px] shrink-0 truncate font-medium text-neutral-900">
+      <span className=" shrink-0 truncate font-medium text-neutral-900">
         <span className="mr-2 inline-block w-5 text-right text-sm text-neutral-400">
           {rank}.
         </span>
@@ -59,7 +59,7 @@ export default function CountryBarRow({
           transition={{ duration: 2, ease: "easeInOut" }}
         ></motion.div>
       </div>
-      <span className="w-[90px] shrink-0 text-right text-sm text-gray-500">
+      <span className=" shrink-0 text-right text-sm text-gray-500">
         {country.Population.toLocaleString()}
       </span>
     </motion.li>

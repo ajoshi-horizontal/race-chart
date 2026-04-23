@@ -2,8 +2,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import type { PopulationYearEntry } from "@/types/population";
-import CountryList from "../lib/helper/CountryList";
-import PageHeader from "./PageHeader";
+import CountryList from "./CountryList";
 
 type PopulationViewerProps = {
   data: PopulationYearEntry[];
@@ -89,8 +88,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
     );
   }
   return (
-    <section className="select-none">
-      {/* <PageHeader title="Population by Country" /> */}
+    <section>
       <header className="flex gap-4 border-b border-neutral-100 justify-between mb-6 pb-4 flex-col sm:flex-row">
         <div>
         <h1 className="sm:text-3xl text-2xl font-bold">Population by Country</h1>
@@ -104,7 +102,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
         >
           ←
         </button>
-        <span className=" text-gray-600">Year: {currentYearData.Year}</span>
+        <span className=" text-gray-600">{currentYearData.Year}</span>
         <button
           className="rounded-md border border-neutral-200 px-3 py-1.5 text-sm text-neutral-700 bg-neutral-50 hover:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={goToNextYear}
@@ -123,7 +121,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
           }`}
           onClick={togglePlayPause}
         >
-          {isPlaying ? "Pause" : "Play"}
+          {isPlaying ? "Pause" : "Autoplay"}
         </button>
         <button
           className="rounded-md border border-neutral-200 px-2.5 py-1 text-sm text-neutral-700 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
