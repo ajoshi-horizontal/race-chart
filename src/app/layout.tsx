@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { tv } from "tailwind-variants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,12 +23,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { html, body } = ROOT_LAYOUT_VARIANTS();
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${html()}`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={body()}>{children}</body>
     </html>
   );
 }
+
+const ROOT_LAYOUT_VARIANTS = tv({
+  slots: {
+    html: ["h-full", "antialiased"],
+    body: ["min-h-full", "flex", "flex-col"],
+  },
+});
