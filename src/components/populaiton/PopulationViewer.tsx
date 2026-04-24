@@ -47,7 +47,7 @@ export default function PopulationViewer({ data }: PopulationViewerProps) {
 
   useEffect(()=>{
     if(!isPlaying) return;
-    // Set up a timer to increment the year index every 1200ms
+    // Set up a timer to increment the year index every AUTOPLAY_INTERVAL_MS
     const timerId = setInterval(()=>{
         setYearIndex((prevIndex)=>{
             if(prevIndex >= data.length -1){
